@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <data>
+        <variable
+            name="item"
+            type="com.chand.learning.feedapp.data.Post" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardVeiw"
+        style="@style/CardViewStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/imageContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_gradient">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivEventImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                imageFromUrl="@{item.thumbnailImage}"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Hello world"
+                app:layout_constraintTop_toBottomOf="@+id/imageContainer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="@dimen/margin_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{item.eventName}"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Hello world"
+                app:layout_constraintTop_toBottomOf="@+id/imageContainer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/margin_medium"
+                dateFromTimeStamp="@{item.eventDate}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

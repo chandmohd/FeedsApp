@@ -1,0 +1,9 @@
+package com.chand.learning.feedapp.utility
+
+import com.chand.learning.feedapp.data.FeedResponse
+import com.google.gson.Gson
+
+object JsonLoader {
+    val gson = Gson()
+    val feedResponse:FeedResponse = gson.fromJson("{\"posts\":[{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/jSBSNRS.jpg\",\"event_name\":\"Hellsafdsfso1\",\"event_date\":1503619200,\"views\":7,\"likes\":3,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/Oqre00j.jpg\",\"event_name\":\"Helsadadalo1\",\"event_date\":1502064000,\"views\":7,\"likes\":3,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/9rFUjSV.jpg\",\"event_name\":\"Helasdadasdlo1\",\"event_date\":1512604800,\"views\":7,\"likes\":56,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/a5Ktysb.jpg\",\"event_name\":\"Helasdadlo1\",\"event_date\":1513900800,\"views\":7,\"likes\":76,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/1AE0xoG.jpg\",\"event_name\":\"Helasdsadasdaslo1\",\"event_date\":1513296000,\"views\":7,\"likes\":98,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/Deh3wZL.jpg\",\"event_name\":\"Helasdadlo1\",\"event_date\":1513900800,\"views\":7,\"likes\":56,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/pFtjkdg.png\",\"event_name\":\"Helasaadlo1\",\"event_date\":1514160000,\"views\":4,\"likes\":23,\"shares\":5},{\"id\":\"HktWbZ1ox\",\"thumbnail_image\":\"http://i.imgur.com/m07g0r2.jpg\",\"event_name\":\"Heeloolasaadlo1\",\"event_date\":1514678399,\"views\":7,\"likes\":4,\"shares\":5}],\"page\":3}",FeedResponse::class.java)
+}
