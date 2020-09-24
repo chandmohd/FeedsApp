@@ -1,27 +1,21 @@
 package com.chand.learning.feedapp.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.chand.learning.feedapp.data.FeedRepository
 import com.chand.learning.feedapp.data.Post
-import com.chand.learning.feedapp.utility.Coroutines
-import kotlinx.coroutines.Job
-import retrofit2.http.POST
+import kotlinx.coroutines.flow.*
 
-class FeedViewModel(private val repo:FeedRepository) :ViewModel() {
-    val _data = MutableLiveData<List<Post>>()
-    val post :LiveData<List<Post>>
-    get() = _data
+class FeedViewModel(
+    private val repo: FeedRepository
+) : ViewModel() {
+    private var livePostData: Flow<PagingData<Post>>? = null
 
-    private lateinit var  job:Job
-
-    fun getFeeds(){
-        job =  Coroutines.ioToMain({repo.getFeeds().posts},{_data.value = it})
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        if (::job.isInitialized)job.cancel()
+    fun getPost(): Flow<PagingData<Post>> {
+       val result =  repo.getPostStream().cachedIn(viewModelScope)
+        livePostData = result
+        return result
     }
 }

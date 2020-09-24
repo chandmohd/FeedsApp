@@ -1,25 +1,28 @@
-package com.chand.learning.newsapp.api
+package com.chand.learning.feedapp.api
 
 import com.chand.learning.feedapp.data.FeedResponse
-import com.chand.learning.feedapp.utility.FIRST_PAGE
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 //import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.QueryMap
+import retrofit2.http.Path
 
 interface ApiService  {
 
-    @GET(FIRST_PAGE)
-    suspend fun getFeeds(@QueryMap param:HashMap<String,String>):Response<FeedResponse>
+    @GET("/v2/{input}")
+    suspend fun getFeeds(@Path("input") page:String):FeedResponse
+
+//    @GET("everything?q=sports&apiKey=aa67d8d98c8e4ad1b4f16dbd5f3be348")
+//    suspend fun getFeeds(
+//        @Query("page") page: Int,
+//        @Query("pageSize") pageSize: Int):FeedResponse
 
     companion object{
-        private const val BASE_URL = "http://www.mocky.io/v2/"
+        private const val BASE_URL = "http://www.mocky.io" //"https://newsapi.org/v2/"
 
-        fun create(): ApiService{
+        fun create(): ApiService {
             val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
             val client = OkHttpClient.Builder().addInterceptor(logger).build()
 
