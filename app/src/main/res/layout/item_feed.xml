@@ -10,6 +10,9 @@
         <variable
             name="item"
             type="com.chand.learning.feedapp.data.Post" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -17,6 +20,7 @@
         style="@style/CardViewStyle"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/margin_medium"
+        android:onClick="@{clickListener}"
         android:layout_marginHorizontal="@dimen/margin_medium"
         app:layout_constraintTop_toTopOf="parent">
 

@@ -1,9 +1,10 @@
 package com.chand.learning.feedapp.data
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Post(
         @SerializedName("event_date")
         val eventDate: Int = 0,
@@ -19,4 +20,4 @@ data class Post(
         val thumbnailImage: String = "",
         @SerializedName("views")
         val views: Int = 0
-    )
+) : Parcelable

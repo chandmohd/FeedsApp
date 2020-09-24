@@ -7,7 +7,19 @@
 
     <fragment
         android:id="@+id/feedsFragment"
-        android:name="com.chand.learning.feedapp.FeedsFragment"
+        android:name="com.chand.learning.feedapp.fragment.FeedsFragment"
         android:label="Feeds"
-        tools:layout="@layout/fragment_feeds" />
+        tools:layout="@layout/fragment_feeds" >
+        <action
+            android:id="@+id/action_feedsFragment_to_feedDetailsFragment"
+            app:destination="@id/feedDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedDetailsFragment"
+        android:name="com.chand.learning.feedapp.fragment.FeedDetailsFragment"
+        android:label="FeedDetailsFragment" >
+        <argument
+            android:name="post"
+            app:argType="com.chand.learning.feedapp.data.Post" />
+    </fragment>
 </navigation>

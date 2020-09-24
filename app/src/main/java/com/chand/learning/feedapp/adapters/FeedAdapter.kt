@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothDevice.ERROR
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagedListAdapter
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
@@ -13,6 +15,9 @@ import com.chand.learning.feedapp.data.Post
 import com.chand.learning.feedapp.data.State
 import com.chand.learning.feedapp.databinding.ItemFeedBinding
 import com.chand.learning.feedapp.databinding.ItemListFooterBinding
+import com.chand.learning.feedapp.fragment.FeedsFragment
+import com.chand.learning.feedapp.fragment.FeedsFragmentDirections
+import com.chand.learning.feedapp.utility.TRANSACTIONS
 import kotlinx.android.synthetic.main.item_list_footer.view.*
 
 
@@ -37,18 +42,28 @@ class NewsAdapter : PagingDataAdapter<Post, RecyclerView.ViewHolder>(NewsDiffCal
     class NewsViewHolder(
         private val binding: ItemFeedBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-//        init {
-//            binding.setClickListener {
-//                binding.item?.let { news ->
-//                    navigateToPlant(news, it)
-//                }
-//            }
-//        }
+        init {
+            binding.setClickListener {
+                binding.item?.let { news ->
+                    navigateToPlant(news, it)
+                }
+            }
+        }
+
+        private fun navigateToPlant(
+            post: Post,
+            view: View
+        ) {
+            val direction = FeedsFragmentDirections.actionFeedsFragmentToFeedDetailsFragment(post)
+            val extras = FragmentNavigatorExtras(binding.root to TRANSACTIONS)
+            view.findNavController().navigate(direction,extras)
+        }
 
 
         fun bind(item: Post) {
             binding.apply {
                 this.item = item
+                this.root.transitionName = "feed_transition_container_"+item?.id.toString()
                 executePendingBindings()
             }
         }

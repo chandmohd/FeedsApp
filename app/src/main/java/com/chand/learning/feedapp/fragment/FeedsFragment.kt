@@ -1,29 +1,26 @@
-package com.chand.learning.feedapp
+package com.chand.learning.feedapp.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
+import com.chand.learning.feedapp.R
 import com.chand.learning.feedapp.adapters.FeedsLoadStateAdapter
 import com.chand.learning.feedapp.adapters.NewsAdapter
-import com.chand.learning.feedapp.data.AppDataBase
-import com.chand.learning.feedapp.data.Post
-import com.chand.learning.feedapp.data.State
+import com.chand.learning.feedapp.databinding.BottomSheetFilterBinding
 import com.chand.learning.feedapp.databinding.FragmentFeedsBinding
-import com.chand.learning.feedapp.utility.FIRST_PAGE
 import com.chand.learning.feedapp.utility.Injector
-import com.chand.learning.feedapp.utility.SECOND_PAGE
 import com.chand.learning.feedapp.viewModel.FeedViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -38,6 +35,10 @@ class FeedsFragment : Fragment() {
     private var  postJob: Job?= null
     private val viewModel:FeedViewModel by viewModels { Injector.getFeedViewModelFactory(this) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -49,10 +50,17 @@ class FeedsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
         subscribeUi(adapter)
         initAdapter()
 
         binding.retryButton.setOnClickListener { adapter.retry() }
+
+        binding.btnSort.setOnClickListener {
+            openBottomSheet()
+        }
     }
 
     @ExperimentalCoroutinesApi
@@ -75,10 +83,9 @@ class FeedsFragment : Fragment() {
             // Only show the list if refresh succeeds.
             binding.rvFeeds.isVisible = loadState.refresh is LoadState.NotLoading
             // Show loading spinner during initial load or refresh.
-            binding.rvFeeds.isVisible = loadState.refresh is LoadState.Loading
+            binding.progressBar.isVisible = loadState.refresh is LoadState.Loading
             // Show the retry state if initial load or refresh fails.
             binding.retryButton.isVisible = loadState.refresh is LoadState.Error
-            binding.progressBar.isVisible = !binding.retryButton.isVisible
 
 
             // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
@@ -94,4 +101,18 @@ class FeedsFragment : Fragment() {
 
     }
 
+    private fun openBottomSheet() {
+        val bottomSheetBinding = BottomSheetFilterBinding.inflate(layoutInflater,null,false)
+        val bottomSheet = BottomSheetDialog(this.requireContext(), R.style.AppBottomSheetDialogTheme)
+        bottomSheet.setContentView(bottomSheetBinding.root)
+
+        BottomSheetBehavior.from(bottomSheetBinding.bottomSheet).state =
+            BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBinding.btnFilter.setOnClickListener {
+            adapter.refresh()
+            bottomSheet.dismiss()
+        }
+        bottomSheet.show()
+
+    }
 }

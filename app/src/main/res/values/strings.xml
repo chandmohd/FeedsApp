@@ -11,5 +11,11 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="error_message">Error occur!! Tap to retry.</string>
     <string name="retry">Retry</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share">Share</string>
+    <string name="likes">Likes</string>
+    <string name="views">Views</string>
+    <string name="sort_by">Sort BY :</string>
+    <string name="filter">Filter</string>
 
 </resources>
