@@ -33,4 +33,9 @@ This Repositry is all about pagging 3 implementation for various usage like
 5. Submit a pull request :D
 
 
-## Gif:
+## ScreenShot:
+
+<img width="306" alt="Screenshot 2020-09-26 at 3 05 40 PM" src="https://user-images.githubusercontent.com/32665518/94337662-f3cdf980-0009-11eb-8b1c-fe849a822da4.png">
+<img width="328" alt="Screenshot 2020-09-26 at 3 04 22 PM" src="https://user-images.githubusercontent.com/32665518/94337667-f597bd00-0009-11eb-86dc-42feb4a70857.png">
+<img width="333" alt="Screenshot 2020-09-26 at 3 03 00 PM" src="https://user-images.githubusercontent.com/32665518/94337668-f7618080-0009-11eb-8ab5-45e7ac65bd38.png">
+
